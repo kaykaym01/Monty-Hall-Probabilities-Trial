@@ -9,6 +9,6 @@ A simple solution using conditional probability shows that the player has a 2/3 
 
 In this case study, we will prove this to be true in the long run through random experiments and then comparing the outcome of switching or not switching doors.
 
-Solution presented in the form of a [Jupyter Notebook]().  
+Solution presented in the form of a [Jupyter Notebook](https://github.com/kaykaym01/Monty-Hall-Probabilities-Trial/blob/main/Monty%20Hall%20Simulation.ipynb).  
 
 Project idea from [Super Data Science workshop](https://www.superdatascience.com/workshops/workshop-037-python-monty-hall-probabilities-trial?utm_source=ontraport&utm_medium=email&utm_campaign=workshop_promo_2)
