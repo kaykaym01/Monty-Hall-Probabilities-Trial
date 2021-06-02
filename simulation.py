@@ -1,4 +1,6 @@
 import random
+from collections import defaultdict
+
 def newGame():
     # Randomly assigns one of the doors to have the prize and the remaining
     # doors to have goats. Returns a dict with door number as the key and
@@ -38,15 +40,18 @@ def openOneDoor(game, chosen_door):
     # door that was chosen by the contestant. Returns a modified dict with the
     # value of the open door as 'open'
 
-    # Remove chosen door and car door from list of doors
-    choice_doors = [x for x in range(1, 4) if x != chosen_door and
-        game[f'door{x}'] != 'prize']
+    # list of all doors
+    all_doors = list(game.keys())
+
+    # Remove chosen door and prize door from list of doors
+    choice_doors = [x for x in all_doors if x != chosen_door and
+        game[x] != 'prize']
 
     # Randomly select a door from choice_doors
     opened_door = random.choice(choice_doors)
 
     # Update dict with 'open' for chosen door
-    game[f'door{opened_door}'] = 'open'
+    game[opened_door] = 'open'
 
     return game
 
@@ -72,15 +77,67 @@ def checkResult(game, chosen_door):
     else:
         return 'loss'
 
+def play_game():
+    # Simulates game play and returns result of game
 
-doors = newGame()
-choice = guestChoice()
-opened = openOneDoor(doors, choice)
-changed = guestChange(opened, choice)
-result = checkResult(opened, changed)
-print(doors)
-print(choice)
-print("Host has opened a door --> ", opened)
-print("Contestant has switched doors --> ", changed)
-print("Result --> ", result)
-print()
+    # Creates a new game
+    game = newGame()
+
+    # Simulates a guest choice
+    choice = guestChoice()
+
+    # Opens one door
+    opened = openOneDoor(game, choice)
+
+    # Changes the door to the other unopened door
+    changed = guestChange(opened, choice)
+
+    # checks the result for the changed choice
+    result = checkResult(opened, changed)
+
+    return result
+
+def simulation(num_games=100):
+    # Simulates num_games games and returns results of winning for switching
+    # and not switching
+
+    # Default dictionary for storing wins of switching and not switching
+    results = defaultdict(int)
+
+    # Loops through number of games
+    for x in range(num_games):
+
+        # Plays a game and gets the result
+        result = play_game()
+
+        # Updates dictionary with number of wins for switching vs not
+        # switching (result='loss')
+        if result == "win":
+            results['switch_wins'] += 1
+        else:
+            results['not_switch_wins'] += 1
+
+    return results
+
+def print_results(results):
+    # Receives results as input and prints results and graph
+
+    # Gets the total number of games
+    total_games = sum(list(results.values()))
+
+    switch_wins = results['switch_wins']
+    switch_percent = switch_wins / total_games
+
+    not_switch_wins = results['not_switch_wins']
+    not_switch_percent = not_switch_wins / total_games
+
+
+    print(f"{'Switching Wins:':>20}{switch_percent:>10} ({switch_wins})")
+    print(f"{'Not Switching Wins:':>20}{not_switch_percent:>10} ({not_switch_wins})")
+    print(f"{'Total Games:':>20}{total_games:>17}")
+
+
+if __name__ == '__main__':
+    results = simulation(num_games=10000)
+    print_results(results)
+    print()

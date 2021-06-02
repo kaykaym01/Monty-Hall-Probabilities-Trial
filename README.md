@@ -7,6 +7,8 @@ This project will simulate the [Monty Hall problem ](https://en.wikipedia.org/wi
 
 A simple solution using conditional probability shows that the player has a 2/3 chance of winning if they switch.
 
-In this case study, we will prove this to be true in the long run through random experiments and then comparing the outcome of switching or not switching doors.  
+In this case study, we will prove this to be true in the long run through random experiments and then comparing the outcome of switching or not switching doors.
+
+Solution presented in the form of a [Jupyter Notebook]().  
 
 Project idea from [Super Data Science workshop](https://www.superdatascience.com/workshops/workshop-037-python-monty-hall-probabilities-trial?utm_source=ontraport&utm_medium=email&utm_campaign=workshop_promo_2)
